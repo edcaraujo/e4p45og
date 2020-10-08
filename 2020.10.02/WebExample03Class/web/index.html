@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>jumintus | edcaraujo.com</title>
+
+    <link rel="stylesheet" href="deps/css/bootstrap.min.css">
+    <link rel="stylesheet" href="deps/css/fontawesome.min.css">
+  </head>
+  <body>
+    <header class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.php">jumintus</a>
+
+              <a class="btn btn-outline-light" href="index.php?do=login"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </header>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4"><i class="fas fa-horse"></i> jumintus</h1>
+        <p class="lead">Haiô Silver! Sistema de Chamados Go Horse (com Asana).</p>
+      </div>
+    </div>
+
+    <div class="container">
+
+      
+      <div class="py-3">
+        <div class="text-center">
+          <div class="alert alert-warning">
+            <h2 class="alert-heading"><b>Atenção</b>: esta é uma versão de teste. Chamados enviados por esta versão <b>não serão atendidos</b>.</h2>
+          </div>
+        </div>
+      </div>
+
+      
+      <form id="task" method="post" action="ServletChamado">
+        <div class="py-3">
+          <div>
+            <h2><i class="fas fa-user"></i> Identificação</h2>
+          </div>
+
+          <div class="pt-3">
+            <div class="form-group">
+              <label for="inuseruid"><i class="fas fa-id-card"></i> Matrícula</label>
+              <input type="text" class="form-control form-control-lg" id="inuseruid" name="user-uid" aria-describedby="inrequesterdetails" placeholder="Digite sua matrícula" maxlength="6" value="">
+              <div class="invalid-feedback">Por favor, digite uma matrícula válida.</div>
+
+              <small id="inuseruiddetails" class="form-text text-muted">A matrícula será utilizada para identificação do colaborador na abertura do chamado. Caso esteja com dúvida, a matrícula encontra-se no seu crachá.</small>
+            </div>
+        
+            <div class="form-group">
+              <label for="inusercontact"><i class="fas fa-phone-alt"></i> Telefone de contato</label>
+              <input type="text" class="form-control form-control-lg" id="inusercontact" name="user-contact" aria-describedby="inusercontactdetails" placeholder="Digite seu telefone" maxlength="15" value="">
+              <div class="invalid-feedback">Por favor, digite um telefone válido.</div>
+              
+              <small id="inusercontactdetails" class="form-text text-muted">O telefone será utilizado pela equipe de suporte para contactar o colaborador. Caso a equipe não consiga entrar em contato, a tarefa poderá ser fechada, portanto essa informação é de extrema importância.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-3">
+          <div>
+            <h2><i class="fas fa-location-arrow"></i> Localização</h2>
+          </div>
+
+          <div>
+            <div class="py-3">
+              <ul class="nav nav-pills nav-fill" id="tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="tabbylabel" data-toggle="pill" href="#bylabel" role="tab" aria-controls="bylabel" aria-selected="true"><i class="fas fa-tags"></i> Por etiqueta</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tabbydescription" data-toggle="pill" href="#bylocal" role="tab" aria-controls="bylocal" aria-selected="false"><i class="fas fa-map-marker-alt"></i> Por local</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-pane fade active show" id="bylabel" role="tabpanel" aria-labelledby="tabbylabel">
+                <div class="py-3">
+                  <div class="form-group">
+                    <label for="inlocallabel"><i class="fas fa-tag"></i> Etiqueta</label>
+                    <input type="text" class="form-control form-control-lg" id="inlocallabel" name="local-label" aria-describedby="inlocallabeldetails" placeholder="Digite a etiqueta do equipamento" maxlength="5" value="">
+                    <div class="invalid-feedback">Por favor, digite uma etiqueta válida.</div>
+
+                    <small id="inlocallabeldetails" class="form-text text-muted">A etiqueta será utilizada para idenficicação da unidade e local. Por favor, digite a etiqueta do equipamento com problema ou, caso não seja um defeito no equipamento, a etiqueta do equipamento mais próximo do problema.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bylocal" role="tabpanel" aria-labelledby="tabbydescription">
+                <div class="form-group">
+                  <label for="inlocalunity"><i class="fas fa-building"></i> Unidade</label>
+                  <select id="inlocalunity" name="local-unity" class="form-control form-control-lg">
+                    <option value="">Selecione a unidade...</option>
+                    <option value="">----------</option>
+                                        <option value="HIG">Hospital Indian Garden (HIG)</option>
+                                        <option value="HEX">Hospital Exile (HEX)</option>
+                                        <option value="HLL">Hospital Hellbeirão (HLL)</option>
+                                      </select>
+                  <div class="invalid-feedback">Por favor, selecione uma unidade válida.</div>
+                  
+                  <small id="inlocalunitydetails" class="form-text text-muted">A unidade é utilizada para direcionarmos o atendimento de forma adequada. Atente-se que as unidades possuem setores semelhantes, de modo que a escolha da unidade correta é importantíssima.</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="inlocaldepartament"><i class="fas fa-door-open"></i> Setor</label>
+                  <input type="text" class="form-control form-control-lg" id="inlocaldepartament" name="local-departament" aria-describedby="inlocaldepartamentdetails" placeholder="Digite o setor" value="">
+                  <div class="invalid-feedback">Por favor, digite um setor válido.</div>
+
+                  <small id="inlocaldepartamentdetails" class="form-text text-muted">A setor é utilizado para localizarmos rapidamente a origem do problema. Por favor, digite a informação e caso não esteja presente no local notifique os outros colaboradores para que possam compartilhar o problema ocorrido com o nosso suporte.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>        
+       
+        <div>
+          <h2><i class="fas fa-edit"></i> Descrição</h2>
+        </div>
+
+        <div class="py-3">
+          <div class="form-group">
+            <label for="intaskcategory"><i class="fas fa-tags"></i> Categoria</label>
+            <select id="intaskcategory" name="task-category" class="form-control form-control-lg">
+              <option value="">Selecione a categoria...</option>
+              <option value="">----------</option>
+                            <option value="Computador">Computador</option>
+                            <option value="Impressora">Impressora</option>
+                            <option value="Cadastro">Cadastro</option>
+                            <option value="Senha">Senha</option>
+                            <option value="Permissão">Permissão</option>
+                            <option value="Sistema">Sistema</option>
+                          </select>
+            <div class="invalid-feedback">Por favor, selecione uma categoria válida.</div>
+
+            <small id="intaskcategorydetails" class="form-text text-muted">A categoria é utilizada para priorizarmos os atendimentos e levantarmos dados e estatísticas dos principais problemas encontrados nas unidades. Com isso, poderemos antecipar determinados problemas, atuando de forma preventiva economizando tempo e recursos dos colaboradores.</small>
+          </div>
+
+          
+          <div class="form-group">
+            <label for="intaskdescription"><i class="fas fa-edit"></i> Descrição</label>
+            <textarea class="form-control" id="intaskdescription" name="task-description" rows="7"></textarea>
+            <div class="invalid-feedback">Por favor, digite uma descrição válida (mínimo de 25 caracteres).</div>
+            
+            <small id="intaskdescriptiondetails" class="form-text text-muted">A descrição é a informação mais relevante da solicitação de suporte. Não deixei de entrar em detalhes e inserir todo o conteúdo necessário para o atendimento do chamado. A forma como descrição está escrita influencia na priorização do atendimento, isso significa que caso as informações não estejam completas outras solicitações serão atendidas primeiro.</small>
+          </div>
+
+          <!-- 
+          <div class="form-group">
+            <label for="intaskattachment"><i class="fas fa-upload"></i> Anexo (Opcional)</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="intaskattachment" name="task-attachment" lang="pt-br">
+              <label class="custom-file-label" for="intaskattachment">Escolha o arquivo...</label>
+            </div>
+            <div class="invalid-feedback">Por favor, selecione um arquivo válido.</div>
+            
+            <small id="intaskattachmentdetails" class="form-text text-muted">Se necessário, faça o upload do arquivo ou imagem para complementar a solicitação e descrição do chamado. Caso o arquivo seja muito grande, recomendamos enviar o link de compartilhamento na núvem (Dropbox, OneDrive, Drive etc.) na descrição do chamado ou até mesmo o e-mail. Se for necessário o envio de vários arquivos, compactar e anexar no campo acima.</small>
+          </div> 
+          -->
+        </div>
+
+        <div class="pt-3 pb-5">
+          <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-edit"></i> Enviar</button>
+        </div>
+      </form>
+
+      <div class="py-3">
+        <div class="text-center">
+          <p><small><i class="fas fa-code"></i> with <i class="fas fa-coffee"></i> | Powered by <a href="https://github.com/edcaraujo/jumintus/">Jumintus</a><br><a href="https://github.com/edcaraujo/jumintus/"><i class="fas fa-code-branch"></i> 0.1.0</a></small></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="deps/js/jquery.min.js"></script>
+    <script src="deps/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      $("#inuseruid").on("keyup", function(e)
+      {
+        $(this).val(
+            $(this).val()
+            .replace(/\D/g, ''));
+      });
+
+      $("#inusercontact").on("keyup", function(e)
+      {
+        $(this).val(
+            $(this).val()
+            .replace(/\D/g, '')
+            .replace(/^(\d{2})(\d{4})?(\d{4})?/, "($1) $2-$3")
+            .replace(/^\((\d{2})\) (\d{1})(\d{3})\-(\d{1})(\d{4})/, "($1) $2 $3$4-$5"));
+      });
+
+      $("#inlocallabel").on("keyup", function(e)
+      {
+        $(this).val(
+            $(this).val()
+            .toUpperCase()
+            .replace(/[^EP0-9]/g, ''));
+      });
+
+      $("#task").submit(function( event ) {
+        var e;
+
+        if (!$("#inuseruid").val().match(/^\d{4,6}$/))
+        {
+          $("#inuseruid").addClass("is-invalid");
+
+          if (!e)
+            e = "#inuseruid";
+        }
+        else
+        {
+          $("#inuseruid").removeClass("is-invalid");
+        }
+
+        if (!$("#inusercontact").val().match(/^\(\d{2}\) \d?\s?\d{4}\-\d{4}$/))
+        {
+          $("#inusercontact").addClass("is-invalid");
+
+          if (!e)
+            e = "#inusercontact";
+        }
+        else
+        {
+          $("#inusercontact").removeClass("is-invalid");
+        }
+
+        if ($("#bylabel").hasClass("active"))
+        {
+          if (!$("#inlocallabel").val().match(/^[EP]{1}\d{4}/))
+          {
+            $("#inlocallabel").addClass("is-invalid");
+
+            if (!e)
+              e = "#inlocallabel";
+          }
+          else
+          {
+            $("#inlocallabel").removeClass("is-invalid");
+          }
+
+          $("#inlocalunity").val("Selecione a unidade...");
+          $("#inlocaldepartament").val("");
+        }
+        else
+        {
+          $("#inlocallabel").removeClass("is-invalid");
+        }
+
+        if ($("#bylocal").hasClass("active"))
+        {
+          if ($("#inlocalunity option:selected").text() == "Selecione a unidade..." ||
+              $("#inlocalunity option:selected").text() == "----------")
+          {
+            $("#inlocalunity").addClass("is-invalid");
+
+            if (!e)
+              e = "#inlocalunity";
+          }
+          else
+          {
+            $("#inlocalunity").removeClass("is-invalid");
+          }
+
+          if (!$("#inlocaldepartament").val().match(/^.{2,}/))
+          {
+            $("#inlocaldepartament").addClass("is-invalid");
+
+            if (!e)
+              e = "#inlocaldepartament";
+          }
+          else
+          {
+            $("#inlocaldepartament").removeClass("is-invalid");
+          }
+
+          $("#inlocallabel").val("");
+        }
+        else
+        {
+          $("#inlocalunity").removeClass("is-invalid");
+          $("#inlocaldepartament").removeClass("is-invalid");
+        }
+
+        if ($("#intaskcategory option:selected").text() == "Selecione a categoria..." ||
+            $("#intaskcategory option:selected").text() == "----------")
+        {
+          $("#intaskcategory").addClass("is-invalid");
+
+          if (!e)
+            e = "#intaskcategory";
+        }
+        else
+        {
+          $("#intaskcategory").removeClass("is-invalid");
+        }
+        
+        if ($("#intaskdescription").val().length < 25)
+        {
+          $("#intaskdescription").addClass("is-invalid");
+
+          if (!e)
+            e = "#intaskdescription";
+        }
+        else
+        {
+          $("#intaskdescription").removeClass("is-invalid");
+        }
+
+        if (e)
+        {
+          $('html, body').animate({
+              scrollTop: $(e).offset().top - 100
+          }, 500);
+
+          event.preventDefault();
+        }
+      });
+    </script>
+  
+</body></html>
